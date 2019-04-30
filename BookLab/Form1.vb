@@ -1,4 +1,5 @@
-Public Class Form1
+﻿Public Class Form1
+    Dim testRating As Rating
     Structure Rating
         Public numberOfRatings As Integer
         Public Owner As Reader
@@ -46,6 +47,17 @@ Public Class Form1
         Public author As String
         Public title As String
         Public numberOfRatings As Integer
+        'Property thumbRating As single
+        '    Get
+        '        Return starRating
+        '    End Get
+        '    Set(value As Integer)
+
+        '        'starRating = 
+        '    End Set
+        'End Property
+
+
         Public Overrides Function ToString() As String
             Return """" + title + """ by " + author
         End Function
@@ -79,4 +91,28 @@ Public Class Form1
         Inherits List
     End Class
 
-    End Class
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        testRating.Rating = -1
+        Label1.Text = testRating.Rating
+    End Sub
+
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        testRating.Rating = 0
+        Label1.Text = testRating.Rating
+
+    End Sub
+
+    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
+        testRating.Rating = 1
+        Label1.Text = testRating.Rating
+
+    End Sub
+
+    Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
+        testRating = New Rating
+
+
+    End Sub
+End Class
+
+
