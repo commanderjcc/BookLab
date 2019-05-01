@@ -91,28 +91,7 @@
         Inherits List
     End Class
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        testRating.Rating = -1
-        Label1.Text = testRating.Rating
-    End Sub
 
-    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
-        testRating.Rating = 0
-        Label1.Text = testRating.Rating
-
-    End Sub
-
-    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
-        testRating.Rating = 1
-        Label1.Text = testRating.Rating
-
-    End Sub
-
-    Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
-        testRating = New Rating
-
-
-    End Sub
 End Class
 
 
