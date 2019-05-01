@@ -1,5 +1,7 @@
 ﻿Public Class Form1
-    Dim testRating As Rating
+
+
+
     Structure Rating
         Public numberOfRatings As Integer
         Public Owner As Reader
@@ -34,6 +36,7 @@
             End Set
         End Property
     End Structure
+
     Class RatingData
         Public rating As Single
         Public ratings(-1) As Rating
@@ -43,10 +46,15 @@
 
     End Class
 
+    Interface IItem
+
+    End Interface
+
     Class Book
+        Implements IItem
         Public author As String
         Public title As String
-        Public numberOfRatings As Integer
+        Public Ratings As New RatingData
         'Property thumbRating As single
         '    Get
         '        Return starRating
@@ -62,9 +70,20 @@
             Return """" + title + """ by " + author
         End Function
 
+        Sub New(inputString As String)
+            Dim tempString() As String = Split(inputString, ",")
+            author = tempString(0)
+            title = tempString(1)
+        End Sub
+        Sub New(author As String, title As String)
+            Me.author = author
+            Me.title = title
+        End Sub
+
     End Class
 
     Class Reader
+        Implements IItem
         Public name As String
         Public ratings
 
@@ -72,23 +91,31 @@
     End Class
 
     Class List
-        Public collection(-1) As Object
+        Public collection(-1) As IItem
 
-        Sub AddItem()
+        Sub AddItem(item As IItem, index As Integer)
 
         End Sub
 
-        Sub RemoveItem()
+        Sub RemoveItem(index As Integer)
 
         End Sub
     End Class
 
     Class Booklist
         Inherits List
+
+        Sub OpenFile()
+
+        End Sub
     End Class
 
     Class ReaderList
         Inherits List
+
+        Sub OpenFile()
+
+        End Sub
     End Class
 
 
