@@ -38,9 +38,10 @@ Public Class Form1
             End Set
         End Property
 
-        Sub New(ByVal rating As Single)
+        Sub New(ByVal rating As Single, ByRef Owner As Reader, ByRef Recipient As Book)
+            Me.Owner = Owner
             valRating = rating
-
+            Me.Recipient = Recipient
         End Sub
     End Structure
 
@@ -50,10 +51,11 @@ Public Class Form1
 
         End Sub
 
-        Sub New(raw As String())
+        Sub New(raw As String(), Owner As Reader, booklist As Booklist)
             ReDim ratings(54)
             For i = 0 To UBound(raw) - 1
-                Me.ratings(i) = New Rating(Int(Trim(raw(i))))
+
+                ratings(i) = New Rating(Int(Trim(raw(i))), Owner, DirectCast(booklist.collection(i), Book))
             Next
 
         End Sub
@@ -94,9 +96,12 @@ Public Class Form1
         Public name As String
         Public ratings As RatingData
 
-        Sub New(name As String, ByVal Ratings As RatingData)
+        Sub New(name As String)
             Me.name = name
-            Me.ratings = Ratings
+        End Sub
+
+        Sub setRatings(ratings As RatingData)
+            Me.ratings = ratings
         End Sub
 
         Public Overrides Function ToString() As String
@@ -140,12 +145,14 @@ Public Class Form1
                 numberOfLines += 1
             Loop
             sr.Close()
+            '' CALL Apply Ratings
         End Sub
     End Class
 
     Class ReaderList
         Inherits List
         Dim workingFileName As String
+
         Sub OpenFile()
             'Dim OfOpen = New OpenFileDialog()
             'OfOpen.ShowDialog()
@@ -168,9 +175,11 @@ Public Class Form1
                 strline = sr.ReadLine
                 strline2 = sr.ReadLine
                 tempSplitString = Split(strline2, " ")
+                collection(numberOfLines) = New Reader(strline)
+                tempRatings = New RatingData(tempSplitString, collection(numberOfLines), Form1.myBookList)
 
-                tempRatings = New RatingData(tempSplitString)
-                collection(numberOfLines) = New Reader(strline, tempRatings)
+                'SHOW KUMMER THIS    & look into generals and the whole, (Of T) thing
+                DirectCast(collection(numberOfLines), Reader).setRatings(tempRatings)
                 numberOfLines += 1
             Loop
 
@@ -229,5 +238,3 @@ Public Class Form1
         myViewController.updateSelectedBook(myBookList.collection(selected))
     End Sub
 End Class
-
-
