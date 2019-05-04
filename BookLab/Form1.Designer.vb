@@ -24,7 +24,7 @@ Partial Class Form1
     Private Sub InitializeComponent()
         Me.lblRating = New System.Windows.Forms.Label()
         Me.lblAuthor = New System.Windows.Forms.Label()
-        Me.Label1 = New System.Windows.Forms.Label()
+        Me.lblTitle = New System.Windows.Forms.Label()
         Me.picBook = New System.Windows.Forms.PictureBox()
         Me.lstBooks = New System.Windows.Forms.ListBox()
         Me.btnBackBook = New System.Windows.Forms.Button()
@@ -45,6 +45,7 @@ Partial Class Form1
         Me.lblRating.Size = New System.Drawing.Size(49, 25)
         Me.lblRating.TabIndex = 9
         Me.lblRating.Text = "5/10"
+        Me.lblRating.Visible = False
         '
         'lblAuthor
         '
@@ -56,21 +57,22 @@ Partial Class Form1
         Me.lblAuthor.TabIndex = 8
         Me.lblAuthor.Text = "Author"
         '
-        'Label1
+        'lblTitle
         '
-        Me.Label1.AutoSize = True
-        Me.Label1.Font = New System.Drawing.Font("Segoe UI Semibold", 20.25!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(196, 291)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(102, 37)
-        Me.Label1.TabIndex = 7
-        Me.Label1.Text = "lblTitle"
+        Me.lblTitle.AutoSize = True
+        Me.lblTitle.Font = New System.Drawing.Font("Segoe UI Semibold", 20.25!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblTitle.Location = New System.Drawing.Point(196, 291)
+        Me.lblTitle.Name = "lblTitle"
+        Me.lblTitle.Size = New System.Drawing.Size(102, 37)
+        Me.lblTitle.TabIndex = 7
+        Me.lblTitle.Text = "lblTitle"
         '
         'picBook
         '
         Me.picBook.Location = New System.Drawing.Point(200, 12)
         Me.picBook.Name = "picBook"
         Me.picBook.Size = New System.Drawing.Size(205, 276)
+        Me.picBook.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
         Me.picBook.TabIndex = 6
         Me.picBook.TabStop = False
         '
@@ -93,6 +95,7 @@ Partial Class Form1
         Me.btnBackBook.TabIndex = 11
         Me.btnBackBook.Text = "Back"
         Me.btnBackBook.UseVisualStyleBackColor = True
+        Me.btnBackBook.Visible = False
         '
         'btnNextBook
         '
@@ -103,6 +106,7 @@ Partial Class Form1
         Me.btnNextBook.TabIndex = 12
         Me.btnNextBook.Text = "Next"
         Me.btnNextBook.UseVisualStyleBackColor = True
+        Me.btnNextBook.Visible = False
         '
         'btnNextReader
         '
@@ -113,6 +117,7 @@ Partial Class Form1
         Me.btnNextReader.TabIndex = 19
         Me.btnNextReader.Text = "Next"
         Me.btnNextReader.UseVisualStyleBackColor = True
+        Me.btnNextReader.Visible = False
         '
         'btnBackReader
         '
@@ -123,6 +128,7 @@ Partial Class Form1
         Me.btnBackReader.TabIndex = 18
         Me.btnBackReader.Text = "Back"
         Me.btnBackReader.UseVisualStyleBackColor = True
+        Me.btnBackReader.Visible = False
         '
         'lstReaders
         '
@@ -158,7 +164,7 @@ Partial Class Form1
         Me.Controls.Add(Me.lstBooks)
         Me.Controls.Add(Me.lblRating)
         Me.Controls.Add(Me.lblAuthor)
-        Me.Controls.Add(Me.Label1)
+        Me.Controls.Add(Me.lblTitle)
         Me.Controls.Add(Me.picBook)
         Me.Name = "Form1"
         Me.Text = "Form1"
@@ -170,7 +176,7 @@ Partial Class Form1
 
     Friend WithEvents lblRating As Label
     Friend WithEvents lblAuthor As Label
-    Friend WithEvents Label1 As Label
+    Friend WithEvents lblTitle As Label
     Friend WithEvents picBook As PictureBox
     Friend WithEvents lstBooks As ListBox
     Friend WithEvents btnBackBook As Button
