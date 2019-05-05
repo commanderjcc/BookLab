@@ -1,7 +1,28 @@
-﻿Imports System.IO
+Imports System.IO
 Public Class Form1
     Public DataModel As New DataManager
     Public ViewController As New viewManager
+
+    Structure Degrees
+        Dim angle As Single
+        Public Property degree As Single
+            Get
+                Return angle
+            End Get
+            Set(value As Single)
+                While value > 360
+                    value -= 360
+                End While
+                While value < -360
+                    value += 360
+                End While
+                angle = value
+            End Set
+        End Property
+
+
+    End Structure
+
     Structure Rating
         Public numberOfRatings As Integer
         Public Owner As Reader
