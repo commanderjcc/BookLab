@@ -1,9 +1,7 @@
 ﻿Imports System.IO
 Public Class Form1
-    Dim myBookList As New Booklist
-    Dim myReaderList As New ReaderList
-    Dim myViewController As New viewManager
-
+    Public DataModel As New DataManager
+    Public ViewController As New viewManager
     Structure Rating
         Public numberOfRatings As Integer
         Public Owner As Reader
@@ -59,6 +57,12 @@ Public Class Form1
             Next
 
         End Sub
+
+    End Class
+
+    Class Recommendation
+        Public books() As List
+
 
     End Class
 
@@ -176,7 +180,7 @@ Public Class Form1
                 strline2 = sr.ReadLine
                 tempSplitString = Split(strline2, " ")
                 collection(numberOfLines) = New Reader(strline)
-                tempRatings = New RatingData(tempSplitString, collection(numberOfLines), Form1.myBookList)
+                tempRatings = New RatingData(tempSplitString, collection(numberOfLines), Form1.DataModel.myBookList)
 
                 'SHOW KUMMER THIS    & look into generals and the whole, (Of T) thing
                 DirectCast(collection(numberOfLines), Reader).setRatings(tempRatings)
@@ -187,11 +191,30 @@ Public Class Form1
         End Sub
     End Class
 
+    Class DataManager
+        Public myBookList As New Booklist
+        Public myReaderList As New ReaderList
+
+        Sub updateBookRatings()
+            Dim numberOfRatings
+        End Sub
+
+
+        Function getSimilarity(reader1 As Reader, reader2 As Reader) As Single
+
+        End Function
+
+        Function getRecommendation(targetReader As Reader) As Recommendation
+
+        End Function
+
+    End Class
+
     Class viewManager
 
         Sub updateReaderLst()
             Form1.lstReaders.Items.Clear()
-            For Each reader In Form1.myReaderList.collection
+            For Each reader In Form1.DataModel.myReaderList.collection
 
                 Form1.lstReaders.Items.Add(reader.ToString)
             Next
@@ -199,7 +222,7 @@ Public Class Form1
 
         Sub updateBookLst()
             Form1.lstBooks.Items.Clear()
-            For Each book In Form1.myBookList.collection
+            For Each book In Form1.DataModel.myBookList.collection
 
                 Form1.lstBooks.Items.Add(book.ToString)
             Next
@@ -220,21 +243,21 @@ Public Class Form1
     End Class
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles Me.Load
-        myBookList.OpenFile()
-        myReaderList.OpenFile()
-        myViewController.updateBookLst()
-        myViewController.updateReaderLst()
+        DataModel.myBookList.OpenFile()
+        DataModel.myReaderList.OpenFile()
+        ViewController.updateBookLst()
+        ViewController.updateReaderLst()
     End Sub
 
     Private Sub LstReaders_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lstReaders.SelectedIndexChanged
         Dim selected As Integer
         selected = lstReaders.SelectedIndex
-        myViewController.updateRatingsLst(myReaderList.collection(selected))
+        ViewController.updateRatingsLst(DataModel.myReaderList.collection(selected))
     End Sub
 
     Private Sub LstBooks_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lstBooks.SelectedIndexChanged
         Dim selected As Integer
         selected = lstBooks.SelectedIndex
-        myViewController.updateSelectedBook(myBookList.collection(selected))
+        ViewController.updateSelectedBook(DataModel.myBookList.collection(selected))
     End Sub
 End Class
