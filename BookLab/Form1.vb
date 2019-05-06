@@ -57,6 +57,11 @@ Public Class Form1
             End Set
         End Property
 
+        Sub setFromFile(value As Single)
+            numberOfRatings = -20 * Math.Log(1 - (value / 5)) ' doesnt work
+
+        End Sub
+
         Sub New(ByVal rating As Single, ByRef Owner As Reader, ByRef Recipient As Book)
             Me.Owner = Owner
             valRating = rating
