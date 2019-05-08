@@ -19,26 +19,34 @@ Public Class Form1
                     Case Is > 0
                         If Rating > 0 Then
                             numberOfRatings += 1
-                            valRating += (1.5 * value / numberOfRatings) 'add the shrinking amount
+                            valRating = 5 * (Math.E ^ (numberOfRatings / 20))
+                            'valRating += (1.5 * value / numberOfRatings) 'add the shrinking amount
                         Else
-                            valRating = 1
                             numberOfRatings = 1
+                            valRating = 5 * (Math.E ^ (numberOfRatings / 20))
                         End If
                     Case Is < 0
                         If Rating < 0 Then
                             numberOfRatings += 1
-                            valRating += (1.25 * value / numberOfRatings)
+                            valRating = -5 * (Math.E ^ (numberOfRatings / 20))
+                            'valRating += (1.25 * value / numberOfRatings)
                         Else
-                            valRating = -1
                             numberOfRatings = 1
+                            valRating = -5 * (Math.E ^ (numberOfRatings / 20))
                         End If
                 End Select
             End Set
         End Property
 
+        Sub setFromFile(value As Single)
+            value = 0
+            numberOfRatings = -20 * Math.Log((-Math.Abs(value) / 5.0339) + 1)
+            valRating = value
+        End Sub
+
         Sub New(ByVal rating As Single, ByRef Owner As Reader, ByRef Recipient As Book)
             Me.Owner = Owner
-            valRating = rating
+            setFromFile(rating)
             Me.Recipient = Recipient
         End Sub
     End Structure
