@@ -27,30 +27,31 @@ Public Class Form1
         Public numberOfRatings As Integer
         Public Owner As Reader
         Public Recipient As Book
-        Dim valRating As Single
+        Dim valRating As Degrees
         Public Property Rating As Single
             Get
-                Return valRating
+                Return valRating.angle
             End Get
             Set(value As Single)
                 Select Case value
                     Case 0
-                        valRating = 0
+                        valRating.angle = 0
                         numberOfRatings = 1
                     Case Is > 0
                         If Rating > 0 Then
                             numberOfRatings += 1
-                            valRating += (1.5 * value / numberOfRatings) 'add the shrinking amount
+                            valRating.angle += 5 * (Math.E ^ (value / 20))
+                            'valRating += (1.5 * value / numberOfRatings) 'add the shrinking amount
                         Else
-                            valRating = 1
+                            valRating.angle = 1
                             numberOfRatings = 1
                         End If
                     Case Is < 0
                         If Rating < 0 Then
                             numberOfRatings += 1
-                            valRating += (1.25 * value / numberOfRatings)
+                            valRating.angle += -5 * (Math.E ^ (-value / 20))
                         Else
-                            valRating = -1
+                            valRating.angle = -1
                             numberOfRatings = 1
                         End If
                 End Select
@@ -58,13 +59,13 @@ Public Class Form1
         End Property
 
         Sub setFromFile(value As Single)
-            numberOfRatings = -20 * Math.Log(1 - (value / 5)) ' doesnt work
-
+            numberOfRatings = -20 * Math.Log((-Math.Abs(value) / 5.0339) + 1)
+            valRating.angle = value
         End Sub
 
         Sub New(ByVal rating As Single, ByRef Owner As Reader, ByRef Recipient As Book)
             Me.Owner = Owner
-            valRating = rating
+            valRating.angle = rating
             Me.Recipient = Recipient
         End Sub
     End Structure

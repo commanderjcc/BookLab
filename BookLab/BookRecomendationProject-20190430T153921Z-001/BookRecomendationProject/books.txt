@@ -18,7 +18,7 @@ Cornelia Funke,Inkheart
 William Gibson,Neuromancer
 William Golding,Lord of the Flies
 William Goldman,The Princess Bride
-James Gurney,Dinotopia: A Land Apart from Time
+James Gurney,Dinotopia A Land Apart from Time
 Will Hobbs,Far North
 Alice Hoffman,Practical Magic
 Aldous Huxley,Brave New World
@@ -45,7 +45,7 @@ Louis Sachar,Holes
 Shueisha,Shonen Jump Series
 Neil Shusterman,The Shadow Club
 Jeff Smith,Bone Series
-Art Spiegelman,Maus: A Survivor's Tale
+Art Spiegelman,Maus A Survivor's Tale
 Amy Tan,The Joy Luck Club
 J R R Tolkien,The Lord of the Rings
 J R R Tolkien,The Hobbit
