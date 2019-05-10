@@ -39,7 +39,6 @@ Public Class Form1
         End Property
 
         Sub setFromFile(value As Single)
-            value = 0
             numberOfRatings = -20 * Math.Log((-Math.Abs(value) / 5.0339) + 1)
             valRating = value
         End Sub
@@ -51,8 +50,26 @@ Public Class Form1
         End Sub
     End Structure
 
+    Structure similarity
+        Implements IComparable
+        Public score As Single
+        Public owner As Reader
+        Public reader As Reader
+
+        Sub New(score As Single, owner As Reader, reader2 As Reader)
+            Me.score = score
+            Me.owner = owner
+            Me.reader = reader2
+        End Sub
+
+        Public Function CompareTo(obj As Object) As Integer Implements IComparable.CompareTo
+            Return DirectCast(obj, similarity).score - Me.score
+        End Function
+    End Structure
+
     Class RatingData
         Public ratings(54) As Rating
+
         Sub AddRating(value As Integer)
 
         End Sub
@@ -71,6 +88,21 @@ Public Class Form1
     Class Recommendation
         Public books() As List
 
+
+    End Class
+
+    Class SimilarityRecommendation
+        Inherits Recommendation
+
+    End Class
+
+    Class PopuluarityRecommendation
+        Inherits Recommendation
+
+    End Class
+
+    Class CustomRecommendation
+        Inherits Recommendation
 
     End Class
 
@@ -106,14 +138,26 @@ Public Class Form1
     Class Reader
         Implements IItem
         Public name As String
-        Public ratings As RatingData
+        Public ratingData As RatingData
+        Public similarities(85) As similarity
+
+        Sub fillSimilarities()
+            For i = 0 To UBound(Form1.DataModel.myReaderList.collection)
+                similarities(i).score = 0
+                similarities(i).owner = Me
+                similarities(i).reader = Form1.DataModel.myReaderList.collection(i)
+                For j = 0 To UBound(DirectCast(Form1.DataModel.myReaderList.collection(i), Reader).ratingData.ratings)
+                    similarities(i).score += ratingData.ratings(j).Rating * DirectCast(Form1.DataModel.myReaderList.collection(i), Reader).ratingData.ratings(j).Rating
+                Next
+            Next
+        End Sub
 
         Sub New(name As String)
             Me.name = name
         End Sub
 
         Sub setRatings(ratings As RatingData)
-            Me.ratings = ratings
+            Me.ratingData = ratings
         End Sub
 
         Public Overrides Function ToString() As String
@@ -208,12 +252,20 @@ Public Class Form1
         End Sub
 
 
-        Function getSimilarity(reader1 As Reader, reader2 As Reader) As Single
+        Sub fillSimilarity()
+            For Each comparedReader In myReaderList.collection
+                DirectCast(comparedReader, Reader).fillSimilarities()
+                Array.Sort(DirectCast(comparedReader, Reader).similarities)
+            Next
+        End Sub
 
-        End Function
-
-        Function getRecommendation(targetReader As Reader) As Recommendation
-
+        Function getRecommendation(algorithm As Integer, targetReader As Reader) As Recommendation
+            Select Case algorithm
+                Case 1
+                    'targetReader.similarities(2).reader
+                Case 2
+                Case 3
+            End Select
         End Function
 
     End Class
@@ -238,7 +290,7 @@ Public Class Form1
 
         Sub updateRatingsLst(reader As Reader)
             Form1.lstRatings.Items.Clear()
-            For Each rating In reader.ratings.ratings
+            For Each rating In reader.ratingData.ratings
                 Form1.lstRatings.Items.Add(rating.Rating)
             Next
         End Sub
@@ -255,6 +307,7 @@ Public Class Form1
         DataModel.myReaderList.OpenFile()
         ViewController.updateBookLst()
         ViewController.updateReaderLst()
+        DataModel.fillSimilarity()
     End Sub
 
     Private Sub LstReaders_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lstReaders.SelectedIndexChanged
