@@ -18,7 +18,7 @@ Partial Class Form1
     Private components As System.ComponentModel.IContainer
 
     'NOTE: The following procedure is required by the Windows Form Designer
-    'It can be modified using the Windows Form Designer.  
+    'It can be modified using the Windows Form Designer.
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
@@ -26,13 +26,11 @@ Partial Class Form1
         Me.lblAuthor = New System.Windows.Forms.Label()
         Me.lblTitle = New System.Windows.Forms.Label()
         Me.picBook = New System.Windows.Forms.PictureBox()
-        Me.lstBooks = New System.Windows.Forms.ListBox()
-        Me.btnBackBook = New System.Windows.Forms.Button()
-        Me.btnNextBook = New System.Windows.Forms.Button()
-        Me.btnNextReader = New System.Windows.Forms.Button()
-        Me.btnBackReader = New System.Windows.Forms.Button()
         Me.lstReaders = New System.Windows.Forms.ListBox()
-        Me.lstRatings = New System.Windows.Forms.ListBox()
+        Me.Button1 = New System.Windows.Forms.Button()
+        Me.Button2 = New System.Windows.Forms.Button()
+        Me.Button3 = New System.Windows.Forms.Button()
+        Me.lstBooks = New System.Windows.Forms.ListBox()
         CType(Me.picBook, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -40,7 +38,8 @@ Partial Class Form1
         '
         Me.lblRating.AutoSize = True
         Me.lblRating.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblRating.Location = New System.Drawing.Point(356, 335)
+        Me.lblRating.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(102, Byte), Integer), CType(CType(153, Byte), Integer))
+        Me.lblRating.Location = New System.Drawing.Point(722, 335)
         Me.lblRating.Name = "lblRating"
         Me.lblRating.Size = New System.Drawing.Size(49, 25)
         Me.lblRating.TabIndex = 9
@@ -51,7 +50,8 @@ Partial Class Form1
         '
         Me.lblAuthor.AutoSize = True
         Me.lblAuthor.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblAuthor.Location = New System.Drawing.Point(200, 335)
+        Me.lblAuthor.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(102, Byte), Integer), CType(CType(153, Byte), Integer))
+        Me.lblAuthor.Location = New System.Drawing.Point(566, 335)
         Me.lblAuthor.Name = "lblAuthor"
         Me.lblAuthor.Size = New System.Drawing.Size(70, 25)
         Me.lblAuthor.TabIndex = 8
@@ -61,7 +61,8 @@ Partial Class Form1
         '
         Me.lblTitle.AutoSize = True
         Me.lblTitle.Font = New System.Drawing.Font("Segoe UI Semibold", 20.25!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblTitle.Location = New System.Drawing.Point(196, 291)
+        Me.lblTitle.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(102, Byte), Integer), CType(CType(153, Byte), Integer))
+        Me.lblTitle.Location = New System.Drawing.Point(562, 291)
         Me.lblTitle.Name = "lblTitle"
         Me.lblTitle.Size = New System.Drawing.Size(102, 37)
         Me.lblTitle.TabIndex = 7
@@ -69,99 +70,86 @@ Partial Class Form1
         '
         'picBook
         '
-        Me.picBook.Location = New System.Drawing.Point(200, 12)
+        Me.picBook.Location = New System.Drawing.Point(566, 12)
         Me.picBook.Name = "picBook"
         Me.picBook.Size = New System.Drawing.Size(205, 276)
         Me.picBook.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
         Me.picBook.TabIndex = 6
         Me.picBook.TabStop = False
         '
-        'lstBooks
-        '
-        Me.lstBooks.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lstBooks.FormattingEnabled = True
-        Me.lstBooks.ItemHeight = 21
-        Me.lstBooks.Location = New System.Drawing.Point(12, 12)
-        Me.lstBooks.Name = "lstBooks"
-        Me.lstBooks.Size = New System.Drawing.Size(159, 256)
-        Me.lstBooks.TabIndex = 10
-        '
-        'btnBackBook
-        '
-        Me.btnBackBook.Font = New System.Drawing.Font("Segoe UI", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnBackBook.Location = New System.Drawing.Point(12, 283)
-        Me.btnBackBook.Name = "btnBackBook"
-        Me.btnBackBook.Size = New System.Drawing.Size(75, 45)
-        Me.btnBackBook.TabIndex = 11
-        Me.btnBackBook.Text = "Back"
-        Me.btnBackBook.UseVisualStyleBackColor = True
-        Me.btnBackBook.Visible = False
-        '
-        'btnNextBook
-        '
-        Me.btnNextBook.Font = New System.Drawing.Font("Segoe UI", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnNextBook.Location = New System.Drawing.Point(94, 283)
-        Me.btnNextBook.Name = "btnNextBook"
-        Me.btnNextBook.Size = New System.Drawing.Size(75, 45)
-        Me.btnNextBook.TabIndex = 12
-        Me.btnNextBook.Text = "Next"
-        Me.btnNextBook.UseVisualStyleBackColor = True
-        Me.btnNextBook.Visible = False
-        '
-        'btnNextReader
-        '
-        Me.btnNextReader.Font = New System.Drawing.Font("Segoe UI", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnNextReader.Location = New System.Drawing.Point(520, 283)
-        Me.btnNextReader.Name = "btnNextReader"
-        Me.btnNextReader.Size = New System.Drawing.Size(75, 45)
-        Me.btnNextReader.TabIndex = 19
-        Me.btnNextReader.Text = "Next"
-        Me.btnNextReader.UseVisualStyleBackColor = True
-        Me.btnNextReader.Visible = False
-        '
-        'btnBackReader
-        '
-        Me.btnBackReader.Font = New System.Drawing.Font("Segoe UI", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnBackReader.Location = New System.Drawing.Point(438, 283)
-        Me.btnBackReader.Name = "btnBackReader"
-        Me.btnBackReader.Size = New System.Drawing.Size(75, 45)
-        Me.btnBackReader.TabIndex = 18
-        Me.btnBackReader.Text = "Back"
-        Me.btnBackReader.UseVisualStyleBackColor = True
-        Me.btnBackReader.Visible = False
-        '
         'lstReaders
         '
+        Me.lstReaders.BackColor = System.Drawing.Color.LightGray
+        Me.lstReaders.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.lstReaders.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lstReaders.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(102, Byte), Integer), CType(CType(153, Byte), Integer))
         Me.lstReaders.FormattingEnabled = True
         Me.lstReaders.ItemHeight = 21
-        Me.lstReaders.Location = New System.Drawing.Point(438, 12)
+        Me.lstReaders.Location = New System.Drawing.Point(12, 12)
         Me.lstReaders.Name = "lstReaders"
-        Me.lstReaders.Size = New System.Drawing.Size(159, 256)
+        Me.lstReaders.Size = New System.Drawing.Size(159, 336)
         Me.lstReaders.TabIndex = 17
         '
-        'lstRatings
+        'Button1
         '
-        Me.lstRatings.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lstRatings.FormattingEnabled = True
-        Me.lstRatings.ItemHeight = 21
-        Me.lstRatings.Location = New System.Drawing.Point(629, 12)
-        Me.lstRatings.Name = "lstRatings"
-        Me.lstRatings.Size = New System.Drawing.Size(159, 256)
-        Me.lstRatings.TabIndex = 20
+        Me.Button1.BackColor = System.Drawing.Color.LightGray
+        Me.Button1.Font = New System.Drawing.Font("Segoe UI Semibold", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(102, Byte), Integer), CType(CType(153, Byte), Integer))
+        Me.Button1.Location = New System.Drawing.Point(200, 117)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(150, 39)
+        Me.Button1.TabIndex = 0
+        Me.Button1.Text = "Method A"
+        Me.Button1.UseVisualStyleBackColor = False
+        '
+        'Button2
+        '
+        Me.Button2.BackColor = System.Drawing.Color.LightGray
+        Me.Button2.Font = New System.Drawing.Font("Segoe UI Semibold", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(102, Byte), Integer), CType(CType(153, Byte), Integer))
+        Me.Button2.Location = New System.Drawing.Point(200, 162)
+        Me.Button2.Name = "Button2"
+        Me.Button2.Size = New System.Drawing.Size(150, 39)
+        Me.Button2.TabIndex = 18
+        Me.Button2.Text = "Method B"
+        Me.Button2.UseVisualStyleBackColor = False
+        '
+        'Button3
+        '
+        Me.Button3.BackColor = System.Drawing.Color.LightGray
+        Me.Button3.Font = New System.Drawing.Font("Segoe UI Semibold", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button3.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(102, Byte), Integer), CType(CType(153, Byte), Integer))
+        Me.Button3.Location = New System.Drawing.Point(200, 210)
+        Me.Button3.Name = "Button3"
+        Me.Button3.Size = New System.Drawing.Size(150, 39)
+        Me.Button3.TabIndex = 19
+        Me.Button3.Text = "Method C"
+        Me.Button3.UseVisualStyleBackColor = False
+        '
+        'lstBooks
+        '
+        Me.lstBooks.BackColor = System.Drawing.Color.LightGray
+        Me.lstBooks.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.lstBooks.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lstBooks.ForeColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(102, Byte), Integer), CType(CType(153, Byte), Integer))
+        Me.lstBooks.FormattingEnabled = True
+        Me.lstBooks.ItemHeight = 21
+        Me.lstBooks.Location = New System.Drawing.Point(387, 12)
+        Me.lstBooks.Name = "lstBooks"
+        Me.lstBooks.Size = New System.Drawing.Size(159, 336)
+        Me.lstBooks.TabIndex = 20
         '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(247, Byte), Integer), CType(CType(254, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.ClientSize = New System.Drawing.Size(807, 374)
-        Me.Controls.Add(Me.lstRatings)
-        Me.Controls.Add(Me.btnNextReader)
-        Me.Controls.Add(Me.btnBackReader)
-        Me.Controls.Add(Me.lstReaders)
-        Me.Controls.Add(Me.btnNextBook)
-        Me.Controls.Add(Me.btnBackBook)
         Me.Controls.Add(Me.lstBooks)
+        Me.Controls.Add(Me.Button3)
+        Me.Controls.Add(Me.Button2)
+        Me.Controls.Add(Me.Button1)
+        Me.Controls.Add(Me.lstReaders)
         Me.Controls.Add(Me.lblRating)
         Me.Controls.Add(Me.lblAuthor)
         Me.Controls.Add(Me.lblTitle)
@@ -178,11 +166,14 @@ Partial Class Form1
     Friend WithEvents lblAuthor As Label
     Friend WithEvents lblTitle As Label
     Friend WithEvents picBook As PictureBox
-    Friend WithEvents lstBooks As ListBox
     Friend WithEvents btnBackBook As Button
     Friend WithEvents btnNextBook As Button
     Friend WithEvents btnNextReader As Button
     Friend WithEvents btnBackReader As Button
     Friend WithEvents lstReaders As ListBox
     Friend WithEvents lstRatings As ListBox
+    Friend WithEvents Button1 As Button
+    Friend WithEvents Button2 As Button
+    Friend WithEvents Button3 As Button
+    Friend WithEvents lstBooks As ListBox
 End Class

@@ -3,6 +3,7 @@ Public Class Form1
     Public DataModel As New DataManager
     Public ViewController As New viewManager
     Structure Rating
+        Implements IComparable
         Public numberOfRatings As Integer
         Public Owner As Reader
         Public Recipient As Book
@@ -48,6 +49,14 @@ Public Class Form1
             setFromFile(rating)
             Me.Recipient = Recipient
         End Sub
+
+        Public Function CompareTo(obj As Object) As Integer Implements IComparable.CompareTo
+            Return DirectCast(obj, Rating).Rating - Rating
+        End Function
+
+        Public Overrides Function ToString() As String
+            Return Owner.name + " - " + Recipient.title
+        End Function
     End Structure
 
     Structure similarity
@@ -80,29 +89,71 @@ Public Class Form1
 
                 ratings(i) = New Rating(Int(Trim(raw(i))), Owner, DirectCast(booklist.collection(i), Book))
             Next
+            Array.Sort(ratings)
+        End Sub
 
+        Function hasRead(book As Book) As Boolean
+            Dim found As Boolean
+            Dim search As Integer
+            found = False
+            While search <= 54
+                If ratings(search).Recipient.title = book.title And ratings(search).Rating <> 0 Then
+                    found = True
+                End If
+
+                search += 1
+            End While
+            Return found
+        End Function
+    End Class
+
+    Class Recomendation
+        Public book As Book
+        Public confidenceRating As Rating
+
+        Sub New(confidence As Rating)
+            Me.book = confidence.Recipient
+            Me.confidenceRating = confidence
+        End Sub
+    End Class
+
+    Class Recommender
+        Public recommendations(54) As Recomendation
+
+        Sub New()
+
+        End Sub
+    End Class
+
+    Class SimilarityRecommender
+        Inherits Recommender
+
+        Sub New(target As Reader)
+            For Each similarity In target.similarities
+
+                Dim numBooks As Integer
+                numBooks = 0
+                While numBooks < 4
+                    For j = 0 To UBound(similarity.reader.ratingData.ratings)
+                        If Not target.ratingData.hasRead(similarity.reader.ratingData.ratings(j).Recipient) Then
+                            recommendations(numBooks) = New Recomendation(similarity.reader.ratingData.ratings(j))
+                            numBooks += 1
+                        End If
+                    Next
+
+                End While
+            Next
         End Sub
 
     End Class
 
-    Class Recommendation
-        Public books() As List
-
-
-    End Class
-
-    Class SimilarityRecommendation
-        Inherits Recommendation
+    Class PopuluarityRecommender
+        Inherits Recommender
 
     End Class
 
-    Class PopuluarityRecommendation
-        Inherits Recommendation
-
-    End Class
-
-    Class CustomRecommendation
-        Inherits Recommendation
+    Class CustomRecommender
+        Inherits Recommender
 
     End Class
 
@@ -259,18 +310,32 @@ Public Class Form1
             Next
         End Sub
 
-        Function getRecommendation(algorithm As Integer, targetReader As Reader) As Recommendation
+        Function getRecommendation(algorithm As Integer, targetReader As Reader) As Recommender
             Select Case algorithm
                 Case 1
-                    'targetReader.similarities(2).reader
+
                 Case 2
+                    Return getBRec(targetReader)
                 Case 3
             End Select
+        End Function
+
+        Function getBRec(targetReader As Reader) As Recommender
+            Return New SimilarityRecommender(targetReader)
         End Function
 
     End Class
 
     Class viewManager
+        ReadOnly Property selectedReader As Reader
+            Get
+                If Form1.lstReaders.SelectedIndex = -1 Then
+                    Return Nothing
+                End If
+                Return DirectCast(Form1.DataModel.myReaderList.collection(Form1.lstReaders.SelectedIndex), Reader)
+            End Get
+        End Property
+
 
         Sub updateReaderLst()
             Form1.lstReaders.Items.Clear()
@@ -282,17 +347,23 @@ Public Class Form1
 
         Sub updateBookLst()
             Form1.lstBooks.Items.Clear()
-            For Each book In Form1.DataModel.myBookList.collection
+            If selectedReader Is Nothing Then
+                Exit Sub
+            End If
 
-                Form1.lstBooks.Items.Add(book.ToString)
+            Dim temp = Form1.DataModel.getRecommendation(2, selectedReader).recommendations
+            For Each book In Form1.DataModel.getRecommendation(2, selectedReader).recommendations
+                If book IsNot Nothing Then
+                    Form1.lstBooks.Items.Add(book.book.ToString)
+                End If
             Next
         End Sub
 
         Sub updateRatingsLst(reader As Reader)
-            Form1.lstRatings.Items.Clear()
-            For Each rating In reader.ratingData.ratings
-                Form1.lstRatings.Items.Add(rating.Rating)
-            Next
+            'Form1.lstRatings.Items.Clear()
+            'For Each rating In reader.ratingData.ratings
+            '    Form1.lstRatings.Items.Add(rating.Rating)
+            'Next
         End Sub
 
         Sub updateSelectedBook(book As Book)
@@ -319,6 +390,13 @@ Public Class Form1
     Private Sub LstBooks_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lstBooks.SelectedIndexChanged
         Dim selected As Integer
         selected = lstBooks.SelectedIndex
-        ViewController.updateSelectedBook(DataModel.myBookList.collection(selected))
+        ViewController.updateSelectedBook(DataModel.getRecommendation(2, ViewController.selectedReader).recommendations(selected).book)
     End Sub
+
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        Dim temp As Book = DirectCast(DataModel.getRecommendation(2, ViewController.selectedReader).recommendations(0).book, Book)
+        ViewController.updateSelectedBook(temp)
+        ViewController.updateBookLst()
+    End Sub
+
 End Class
